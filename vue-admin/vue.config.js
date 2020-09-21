@@ -10,6 +10,23 @@ module.exports = {
    * webpack配置,see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
    **/
   chainWebpack: (config) => {
+    config.module.rule('compile')
+      .test(/\.js$/)
+      .include
+      .add(resolve('src'))
+      .add(resolve('test'))
+      .add(resolve('node_modules/webpack-dev-server/client'))
+      .add(resolve('node_modules'))
+      .end()
+      .use('babel')
+      .loader('babel-loader')
+      .options({
+        presets: [
+          ['@babel/preset-env', {
+            modules: false
+          }]
+        ]
+      });
   },
   configureWebpack: (config) => {
     config.resolve = { // 配置解析别名
