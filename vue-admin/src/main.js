@@ -6,9 +6,8 @@ import store from "./store";
 import ElementUI from 'element-ui';
 import axios from 'axios'
 import 'babel-polyfill'
-import Es6Promise from 'es6-promise'
-require('es6-promise').polyfill()
-Es6Promise.polyfill()
+import promise from 'es6-promise'
+promise.polyfill()
 Vue.prototype.$axios = axios
 Vue.use(ElementUI,{size: 'small'});
 
