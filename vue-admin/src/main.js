@@ -3,9 +3,9 @@ import Vue from "vue";
 import router from "./router";
 import App from "./App.vue"
 import store from "./store";
-
 import ElementUI from 'element-ui';
-
+import axios from 'axios'
+Vue.prototype.$axios = axios
 Vue.use(ElementUI,{size: 'small'});
 
 

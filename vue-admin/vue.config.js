@@ -53,12 +53,21 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: true, // 编译完成是否打开网页
-    host: '0.0.0.0', // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
+    host: '127.0.0.1', // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
     port: 8881, // 访问端口
     https: false, // 编译失败时刷新页面
     hot: true, // 开启热加载
     hotOnly: false,
-    proxy: null, // 设置代理
+    proxy: {
+      '/api': {
+        target: 'https://apigw.gialen.com/h5/req', //对应自己的接口
+        changeOrigin: true,
+        secure: true, // false为http访问，true为https访问
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    }, // 设置代理
     overlay: { // 全屏模式下是否显示脚本错误
       warnings: true,
       errors: true
