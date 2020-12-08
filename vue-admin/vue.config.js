@@ -1,17 +1,37 @@
 const path = require('path');
+function resolve(dir) {
+  return path.join(__dirname, '.', dir);
+}
 module.exports = {
   // 基本路径
   publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
   // 输出文件目录
   outputDir: process.env.NODE_ENV === 'production' ? 'dist' : 'devdist',
+  transpileDependencies: [],
   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
   /**
    * webpack配置,see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
    **/
   chainWebpack: (config) => {
-
-  },
+    config.module.rule('compile')
+      .test(/\.js$/)
+      .include
+      .add(resolve('src'))
+      .add(resolve('test'))
+      .add(resolve('node_modules/webpack-dev-server/client'))
+      .add(resolve('node_modules'))
+      .end()
+      .use('babel')
+      .loader('babel-loader')
+      .options({
+        presets: [
+          ['@babel/preset-env', {
+            modules: false
+          }]
+        ]
+      });
+    },
   configureWebpack: (config) => {
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
@@ -54,7 +74,8 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: true, // 编译完成是否打开网页
-    host: '127.0.0.1', // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
+    // host: '127.0.0.1', // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
+    host: '0.0.0.0', // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
     port: 8881, // 访问端口
     https: false, // 编译失败时刷新页面
     hot: true, // 开启热加载
@@ -73,8 +94,8 @@ module.exports = {
       warnings: true,
       errors: true
     },
-    before: app => {
-    }
+    // before: app => {
+    // }
   },
   /**
    * 第三方插件配置

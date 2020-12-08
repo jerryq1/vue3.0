@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = process.env.NODE_ENV === 'production' ? '//apigw.gialen.com/h5/req' : '//127.0.0.1:8881/api'
+const baseURL = process.env.NODE_ENV === 'production' ? '//apigw.gialen.com/h5/req' : '//192.168.137.230:8881/api'
 // const baseURL = process.env.NODE_ENV === 'production' ? '/nadmin/' : '//172.30.31.43:1083/nadmin'
 
 /**
@@ -20,7 +20,7 @@ const requestFulfilled = (config) => {
  */
 const requestRejected = (error) => {
   // 对请求错误做些什么
-  Message.error('请求出错')
+  // Message.error('请求出错')
   return Promise.reject(error)
 }
 
@@ -34,7 +34,7 @@ const responseFulfilled = (response) => {
   const res = response.data
   if (res.code && (res.code !== 200)) {
     if (res.code === 3001 || res.code === 3401) {
-      redirectLogin('验证失效，请重新登录！')
+      // redirectLogin('验证失效，请重新登录！')
     } else if (res.code === 303) {
       return response.data // 导入
     } else if (res.code === 505) {
@@ -55,7 +55,7 @@ const responseFulfilled = (response) => {
  */
 const responseRejected = (error) => {
   // 对响应错误做点什么
-  Message.error('返回出错')
+  // Message.error('返回出错')
   return Promise.reject(error)
 }
 
@@ -74,9 +74,9 @@ axios.interceptors.response.use(responseFulfilled, responseRejected)
  * @param params
  * @returns {Promise<AxiosResponse<T>>}
  */
-const uploadImage = (type, params) => {
-  return axios.post(`/image/upload/${type}`, params)
-}
+// const uploadImage = (type, params) => {
+//   return axios.post(`/image/upload/${type}`, params)
+// }
 const getProductInfo = (params) => {
   return axios.post('/product.getProductSaleAttributeListV3', params)
 }
