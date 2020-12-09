@@ -26,7 +26,7 @@
             <el-input v-model="ruleForm.code"></el-input>
           </el-col>
           <el-col :span="10">
-            <el-button type="success" class="block" size="mini">获取验证码123112312323123</el-button>
+            <el-button type="success" class="block" size="mini">获取验证码1231123444412323123</el-button>
           </el-col>
         </el-row>
 
