@@ -36,6 +36,13 @@ module.exports = {
       });
   },
   configureWebpack: (config) => {
+     config.plugins.push(
+     new CompressionPlugin({
+       test: /\.(js|css|html)$/,//需要压缩的文件正则
+       threshold: 10240,//文件大小大于这个值时启用压缩
+       deleteOriginalAssets: false//压缩后保留原文件
+     })
+    )
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
       alias: {
@@ -48,14 +55,8 @@ module.exports = {
         'data': path.resolve(__dirname, './src/data')
       }
     }
-    //  config.plugins.push(
-    //  new CompressionPlugin({
-    //    test: /\.(js|css|html)$/,//需要压缩的文件正则
-    //    threshold: 10240,//文件大小大于这个值时启用压缩
-    //    deleteOriginalAssets: false//压缩后保留原文件
-    //  })
-    // )
   },
+
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,
   // css相关配置
