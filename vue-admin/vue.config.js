@@ -6,6 +6,27 @@ function resolve(dir) {
   return path.join(__dirname, '.', dir);
 }
 
+const cdn = {
+  // 忽略打包的第三方库
+  externals: {
+    vue: 'Vue',
+    vuex: 'Vuex',
+    'vue-router': 'VueRouter',
+    axios: 'axios',
+  },
+
+  // 通过cdn方式使用
+  js: [
+    'https://cdn.bootcss.com/vue/2.6.11/vue.runtime.min.js',
+    'https://cdn.bootcss.com/vue-router/3.1.2/vue-router.min.js',
+    'https://cdn.bootcss.com/vuex/3.1.2/vuex.min.js',
+    'https://cdn.bootcss.com/axios/0.19.2/axios.min.js',
+    'https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js',
+    'https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js',
+  ],
+  css: [],
+};
+
 module.exports = {
   // 基本路径
   publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
@@ -18,10 +39,7 @@ module.exports = {
    * webpack配置,see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
    **/
   chainWebpack: (config) => {
-    // 移除 prefetch 插件
-    config.plugins.delete('prefetch-index')
-    // 移除 preload 插件
-    config.plugins.delete('preload-index');
+
     config.module.rule('compile')
       .test(/\.js$/)
       .include
@@ -45,6 +63,7 @@ module.exports = {
       .loader('url-loader')
       .tap(options => Object.assign(options, {limit: 10000})
       );
+
     // config.when(process.env.NODE_ENV === 'production', config => {
     //   config.output.filename('js/[name].[contenthash:7].js').chunkFilename('js/[name].[contenthash:7].js').end();
     //   config.plugin('extract-css').tap(args => [{
@@ -52,6 +71,15 @@ module.exports = {
     //     chunkFilename: 'css/[name].[contenthash:10].css'
     //   }])
     // })
+    // 移除 prefetch 插件
+    config.plugins.delete('prefetch-index')
+    // 移除 preload 插件
+    config.plugins.delete('preload-index');
+    // 配置cdn引入
+    config.plugin('html').tap((args) => {
+      args[0].cdn = cdn;
+      return args;
+    });
   },
   configureWebpack: (config) => {
     config.plugins.push(
@@ -61,9 +89,6 @@ module.exports = {
         deleteOriginalAssets: false//压缩后保留原文件
       })
     )
-
-
-
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
       alias: {
@@ -74,6 +99,28 @@ module.exports = {
         'api': path.resolve(__dirname, './src/api'),
         'views': path.resolve(__dirname, './src/views'),
         'data': path.resolve(__dirname, './src/data')
+      }
+    }
+    config.optimization = {
+      // 分割代码块
+      splitChunks: {
+        maxSize: 240 * 1024, // 控制包的最大字节数
+        cacheGroups: {
+          //公用模块抽离
+          common: {
+            chunks: 'all',
+            minSize: 0, //大于0个字节
+            minChunks: 2, //抽离公共代码时，这个代码块最小被引用的次数
+          },
+          //第三方库抽离
+          vendor: {
+            priority: 1, //权重
+            test: /node_modules/,
+            chunks: 'all',
+            minSize: 0, //大于0个字节
+            minChunks: 2, //在分割之前，这个代码块最小应该被引用的次数
+          },
+        },
       }
     }
   },
@@ -132,7 +179,5 @@ module.exports = {
   /**
    * 第三方插件配置
    */
-  pluginOptions: {
-
-  }
+  pluginOptions: {}
 }
