@@ -26,7 +26,7 @@
             <el-input v-model="ruleForm.code"></el-input>
           </el-col>
           <el-col :span="10">
-            <el-button type="success" class="block" size="mini">获取验测试证码</el-button>
+            <el-button type="success" class="block" size="mini">获取验证码</el-button>
           </el-col>
         </el-row>
 
@@ -36,6 +36,10 @@
         </el-button>
       </el-form-item>
     </el-form>
+
+
+    <img src="../../assets/cat.png" alt="">
+    <img src="../../assets/tag_bg.png" alt="">
   </div>
 </template>
 
@@ -191,13 +195,15 @@
 
 <style lang="scss" scoped>
   .login {
-    background-color: #344a5f;
+    /*background-color: #344a5f;*/
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-image: url("../../assets/4a4dd6f9fa130c8e12dfdad8317b650f.jpg");
+    background-size: cover;
 
     .tag {
       ul {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    我是生产页
+    我是生产页111
     <Test :bbc.sync="aaaa"></Test>
   </div>
 </template>
@@ -19,7 +19,7 @@
     data() {
       // 页面全局属性
       return {
-        aaaa:222222
+        aaaa:2221
       }
     },
     created() {
