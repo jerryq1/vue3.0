@@ -1,6 +1,6 @@
 const path = require('path');
 const CompressionPlugin = require("compression-webpack-plugin")
-
+const TerserPlugin = require('terser-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, '.', dir);
@@ -8,22 +8,10 @@ function resolve(dir) {
 
 const cdn = {
   // 忽略打包的第三方库
-  externals: {
-    vue: 'Vue',
-    vuex: 'Vuex',
-    'vue-router': 'VueRouter',
-    axios: 'axios',
-  },
+  externals: {},
 
   // 通过cdn方式使用
-  js: [
-    'https://cdn.bootcss.com/vue/2.6.11/vue.runtime.min.js',
-    'https://cdn.bootcss.com/vue-router/3.1.2/vue-router.min.js',
-    'https://cdn.bootcss.com/vuex/3.1.2/vuex.min.js',
-    'https://cdn.bootcss.com/axios/0.19.2/axios.min.js',
-    'https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js',
-    'https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js',
-  ],
+  js: [],
   css: [],
 };
 
@@ -72,9 +60,9 @@ module.exports = {
     //   }])
     // })
     // 移除 prefetch 插件
-    config.plugins.delete('prefetch-index')
+    config.plugins.delete('prefetch')
     // 移除 preload 插件
-    config.plugins.delete('preload-index');
+    config.plugins.delete('preload');
     // 配置cdn引入
     config.plugin('html').tap((args) => {
       args[0].cdn = cdn;
@@ -87,6 +75,20 @@ module.exports = {
         test: /\.(js|css|html)$/,//需要压缩的文件正则
         threshold: 10240,//文件大小大于这个值时启用压缩
         deleteOriginalAssets: false//压缩后保留原文件
+      })
+    )
+    config.plugins.push(
+      new TerserPlugin({
+        terserOptions: {
+          ecma: undefined,
+          warnings: false,
+          parse: {},
+          compress: {
+            drop_console: true,
+            drop_debugger: false,
+            pure_funcs: ['console.log'] // 移除console
+          }
+        }
       })
     )
     config.resolve = { // 配置解析别名
@@ -102,21 +104,36 @@ module.exports = {
       }
     }
     config.optimization = {
+      minimizer: [
+        new TerserPlugin({
+          //采用多进程打包
+          parallel: 4,
+          terserOptions: {
+            compress: {
+              // 去除debug、console
+              warnings: true,
+              drop_debugger: true,
+              drop_console: true
+            } }
+        })
+      ],
       // 分割代码块
       splitChunks: {
-        maxSize: 240 * 1024, // 控制包的最大字节数
+        // chunks:'all',
+        // maxSize: 480 * 1024, // 控制包的最大字节数
         cacheGroups: {
           //公用模块抽离
           common: {
-            chunks: 'all',
-            minSize: 0, //大于0个字节
-            minChunks: 2, //抽离公共代码时，这个代码块最小被引用的次数
+            name: 'common',
+            chunks: 'initial',
+            priority: 2,
+            minChunks: 2,
           },
           //第三方库抽离
           vendor: {
             priority: 1, //权重
             test: /node_modules/,
-            chunks: 'all',
+            chunks: 'initial',
             minSize: 0, //大于0个字节
             minChunks: 2, //在分割之前，这个代码块最小应该被引用的次数
           },
@@ -130,7 +147,7 @@ module.exports = {
   // css相关配置
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
-    extract: true,
+    extract: false,
     // 开启 CSS source maps?
     sourceMap: false,
     // css预设器配置项cc
