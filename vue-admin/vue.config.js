@@ -18,6 +18,10 @@ module.exports = {
    * webpack配置,see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
    **/
   chainWebpack: (config) => {
+    // 移除 prefetch 插件
+    config.plugins.delete('prefetch-index')
+    // 移除 preload 插件
+    config.plugins.delete('preload-index');
     config.module.rule('compile')
       .test(/\.js$/)
       .include
@@ -41,9 +45,13 @@ module.exports = {
       .loader('url-loader')
       .tap(options => Object.assign(options, {limit: 10000})
       );
-    config.when(process.env.NODE_ENV === 'production', config => {
-      config.output.filename('js/[name].[contenthash:7].js').chunkFilename('js/[name].[contenthash:7].js').end();
-    })
+    // config.when(process.env.NODE_ENV === 'production', config => {
+    //   config.output.filename('js/[name].[contenthash:7].js').chunkFilename('js/[name].[contenthash:7].js').end();
+    //   config.plugin('extract-css').tap(args => [{
+    //     filename: 'css/[name].[contenthash:7].css',
+    //     chunkFilename: 'css/[name].[contenthash:10].css'
+    //   }])
+    // })
   },
   configureWebpack: (config) => {
     config.plugins.push(
@@ -75,10 +83,7 @@ module.exports = {
   // css相关配置
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
-    extract: process.env.NODE_ENV === 'production'? {
-      filename: `css/[name].[contenthash:7].css`,
-      chunkFilename: `css/[name].[contenthash:7].css`
-    }:true,
+    extract: true,
     // 开启 CSS source maps?
     sourceMap: false,
     // css预设器配置项

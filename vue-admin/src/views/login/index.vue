@@ -167,7 +167,7 @@
       switchLogin(info) {
         this.tags.forEach(item => item.switch = false)
         info.switch = true
-        alert(1)
+        // alert(1)
       }
       ,
 
@@ -195,7 +195,7 @@
 
 <style lang="scss" scoped>
   .login {
-    background-color: #fff;
+    background-color: yellow;
     width: 100%;
     height: 100%;
     display: flex;

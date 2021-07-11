@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 // import Login from "../views/login/index";
 // import Product from "../views/product/index";
-const Login = () => import('../views/login/index')
-const Product = () => import( '../views/product/index')
+const Login = () => import(/*webpackChunkName:'adminChunk'*/'../views/login/index')
+const Product = () => import( /*webpackChunkName:'adminChunk'*/'../views/login/index')
 
 Vue.use(VueRouter);
 
