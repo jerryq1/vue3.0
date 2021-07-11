@@ -77,20 +77,6 @@ module.exports = {
         deleteOriginalAssets: false//压缩后保留原文件
       })
     )
-    config.plugins.push(
-      new TerserPlugin({
-        terserOptions: {
-          ecma: undefined,
-          warnings: false,
-          parse: {},
-          compress: {
-            drop_console: true,
-            drop_debugger: false,
-            pure_funcs: ['console.log'] // 移除console
-          }
-        }
-      })
-    )
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
       alias: {
