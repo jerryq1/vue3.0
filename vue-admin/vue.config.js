@@ -6,26 +6,26 @@ function resolve(dir) {
   return path.join(__dirname, '.', dir);
 }
 
-// const cdn = {
-//   // 忽略打包的第三方库
-//   externals: {
-//     vue: 'Vue',
-//     vuex: 'Vuex',
-//     'vue-router': 'VueRouter',
-//     axios: 'axios',
-//   },
-//
-//   // 通过cdn方式使用
-//   js: [
-//     'https://cdn.bootcss.com/vue/2.6.11/vue.runtime.min.js',
-//     'https://cdn.bootcss.com/vue-router/3.1.2/vue-router.min.js',
-//     'https://cdn.bootcss.com/vuex/3.1.2/vuex.min.js',
-//     'https://cdn.bootcss.com/axios/0.19.2/axios.min.js',
-//     'https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js',
-//     'https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js',
-//   ],
-//   css: [],
-// };
+const cdn = {
+  // 忽略打包的第三方库
+  externals: {
+    vue: 'Vue',
+    vuex: 'Vuex',
+    'vue-router': 'VueRouter',
+    axios: 'axios',
+  },
+
+  // 通过cdn方式使用
+  js: [
+    'https://cdn.bootcss.com/vue/2.6.11/vue.runtime.min.js',
+    'https://cdn.bootcss.com/vue-router/3.1.2/vue-router.min.js',
+    'https://cdn.bootcss.com/vuex/3.1.2/vuex.min.js',
+    'https://cdn.bootcss.com/axios/0.19.2/axios.min.js',
+    'https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js',
+    'https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js',
+  ],
+  css: [],
+};
 
 module.exports = {
   // 基本路径
@@ -76,10 +76,10 @@ module.exports = {
     // 移除 preload 插件
     config.plugins.delete('preload-index');
     // 配置cdn引入
-    // config.plugin('html').tap((args) => {
-    //   args[0].cdn = cdn;
-    //   return args;
-    // });
+    config.plugin('html').tap((args) => {
+      args[0].cdn = cdn;
+      return args;
+    });
   },
   configureWebpack: (config) => {
     config.plugins.push(
@@ -104,7 +104,7 @@ module.exports = {
     config.optimization = {
       // 分割代码块
       splitChunks: {
-        // maxSize: 240 * 1024, // 控制包的最大字节数
+        maxSize: 240 * 1024, // 控制包的最大字节数
         cacheGroups: {
           //公用模块抽离
           common: {
