@@ -19,7 +19,7 @@
     data() {
       // 页面全局属性
       return {
-        aaaa:111
+        aaaa:1111111
       }
     },
     created() {
