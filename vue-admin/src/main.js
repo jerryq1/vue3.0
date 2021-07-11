@@ -8,6 +8,8 @@ import axios from 'axios'
 import 'babel-polyfill'
 import Es6Promise from 'es6-promise'
 require('es6-promise').polyfill()
+import (/*webpackPreload:true*/"./styles/main.scss")
+
 Es6Promise.polyfill()
 
 Vue.prototype.$axios = axios

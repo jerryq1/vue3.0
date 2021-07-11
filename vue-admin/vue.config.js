@@ -86,12 +86,12 @@ module.exports = {
     extract: true,
     // 开启 CSS source maps?
     sourceMap: false,
-    // css预设器配置项
+    // css预设器配置项cc
     loaderOptions: {
       // 如发现 css.requireModuleExtension 报错，请查看这里：http://www.web-jshtml.cn/#/detailed?id=12
-      sass: {
-        prependData: `@import "./src/styles/main.scss";`
-      }
+      // sass: {
+      //   prependData: `@import "./src/styles/main.scss";`
+      // }
     },
     // 启用 css.requireModuleExtension for all css / pre-processor files.
     requireModuleExtension: true
