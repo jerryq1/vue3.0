@@ -195,7 +195,7 @@
 
 <style lang="scss" scoped>
   .login {
-    background-color: #344a5f;
+    background-color: #fff;
     width: 100%;
     height: 100%;
     display: flex;

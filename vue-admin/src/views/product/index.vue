@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="product">
     我是生产页111
     <Test :bbc.sync="aaaa"></Test>
   </div>
@@ -19,7 +19,7 @@
     data() {
       // 页面全局属性
       return {
-        aaaa:2221
+        aaaa:111
       }
     },
     created() {
@@ -42,5 +42,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.product{
+  background-color: red;
+}
 </style>

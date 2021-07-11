@@ -1,6 +1,7 @@
 const path = require('path');
 const CompressionPlugin = require("compression-webpack-plugin")
 
+
 function resolve(dir) {
   return path.join(__dirname, '.', dir);
 }
@@ -38,9 +39,11 @@ module.exports = {
       .rule('images')
       .use('url-loader')
       .loader('url-loader')
-      .tap(options => Object.assign(options, {limit: 20000})
+      .tap(options => Object.assign(options, {limit: 10000})
       );
-    config.output.filename('./js/[name].[contenthash:8].js').chunkFilename('./js/[name].[contenthash:8].js').end()
+    config.when(process.env.NODE_ENV === 'production', config => {
+      config.output.filename('js/[name].[contenthash:7].js').chunkFilename('js/[name].[contenthash:7].js').end();
+    })
   },
   configureWebpack: (config) => {
     config.plugins.push(
@@ -50,6 +53,8 @@ module.exports = {
         deleteOriginalAssets: false//压缩后保留原文件
       })
     )
+
+
 
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
@@ -70,7 +75,10 @@ module.exports = {
   // css相关配置
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
-    extract: true,
+    extract: process.env.NODE_ENV === 'production'? {
+      filename: `css/[name].[contenthash:7].css`,
+      chunkFilename: `css/[name].[contenthash:7].css`
+    }:true,
     // 开启 CSS source maps?
     sourceMap: false,
     // css预设器配置项
@@ -78,9 +86,7 @@ module.exports = {
       // 如发现 css.requireModuleExtension 报错，请查看这里：http://www.web-jshtml.cn/#/detailed?id=12
       sass: {
         prependData: `@import "./src/styles/main.scss";`
-      },
-
-
+      }
     },
     // 启用 css.requireModuleExtension for all css / pre-processor files.
     requireModuleExtension: true
@@ -121,5 +127,7 @@ module.exports = {
   /**
    * 第三方插件配置
    */
-  pluginOptions: {}
+  pluginOptions: {
+
+  }
 }
