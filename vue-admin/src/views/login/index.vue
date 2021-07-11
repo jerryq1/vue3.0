@@ -167,7 +167,7 @@
       switchLogin(info) {
         this.tags.forEach(item => item.switch = false)
         info.switch = true
-        // alert(1)
+        alert(1)
       }
       ,
 
@@ -195,15 +195,15 @@
 
 <style lang="scss" scoped>
   .login {
-    /*background-color: #344a5f;*/
+    background-color: #344a5f;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: url("../../assets/4a4dd6f9fa130c8e12dfdad8317b650f.jpg");
-    background-size: cover;
+    /*background-image: url("../../assets/4a4dd6f9fa130c8e12dfdad8317b650f.jpg");*/
+    /*background-size: cover;*/
 
     .tag {
       ul {

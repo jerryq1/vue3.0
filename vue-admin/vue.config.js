@@ -34,15 +34,23 @@ module.exports = {
           }]
         ]
       });
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, {limit: 20000})
+      );
+    config.output.filename('./js/[name].[contenthash:8].js').chunkFilename('./js/[name].[contenthash:8].js').end()
   },
   configureWebpack: (config) => {
-     config.plugins.push(
-     new CompressionPlugin({
-       test: /\.(js|css|html)$/,//需要压缩的文件正则
-       threshold: 10240,//文件大小大于这个值时启用压缩
-       deleteOriginalAssets: false//压缩后保留原文件
-     })
+    config.plugins.push(
+      new CompressionPlugin({
+        test: /\.(js|css|html)$/,//需要压缩的文件正则
+        threshold: 10240,//文件大小大于这个值时启用压缩
+        deleteOriginalAssets: false//压缩后保留原文件
+      })
     )
+
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
       alias: {
@@ -70,7 +78,9 @@ module.exports = {
       // 如发现 css.requireModuleExtension 报错，请查看这里：http://www.web-jshtml.cn/#/detailed?id=12
       sass: {
         prependData: `@import "./src/styles/main.scss";`
-      }
+      },
+
+
     },
     // 启用 css.requireModuleExtension for all css / pre-processor files.
     requireModuleExtension: true
