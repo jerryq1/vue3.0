@@ -105,7 +105,7 @@ module.exports = {
       ],
       // 分割代码块
       splitChunks: {
-        // chunks:'all',
+        chunks:'all',
         // maxSize: 480 * 1024, // 控制包的最大字节数
         cacheGroups: {
           //公用模块抽离
