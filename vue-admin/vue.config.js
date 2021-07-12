@@ -64,10 +64,10 @@ module.exports = {
     // 移除 preload 插件
     config.plugins.delete('preload');
     // 配置cdn引入
-    config.plugin('html').tap((args) => {
-      args[0].cdn = cdn;
-      return args;
-    });
+    // config.plugin('html').tap((args) => {
+    //   args[0].cdn = cdn;
+    //   return args;
+    // });
   },
   configureWebpack: (config) => {
     config.plugins.push(
