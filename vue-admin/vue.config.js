@@ -90,17 +90,36 @@ module.exports = {
       }
     }
     config.optimization = {
+      minimize: true,
       minimizer: [
         new TerserPlugin({
           //采用多进程打包
-          parallel: 4,
+          parallel: true,
+          extractComments: 'all',
           terserOptions: {
             compress: {
-              // 去除debug、console
-              warnings: true,
-              drop_debugger: true,
+              // console
+              warnings: false, //不展示warning
               drop_console: true
-            } }
+            },
+            output: {
+              comments: false //去除注释
+            }
+          },
+          // minify: (file, sourceMap) => {
+          //   // https://github.com/mishoo/UglifyJS2#minify-options
+          //   const uglifyJsOptions = {
+          //     /* your `uglify-js` package options */
+          //   };
+          //
+          //   if (sourceMap) {
+          //     uglifyJsOptions.sourceMap = {
+          //       content: sourceMap,
+          //     };
+          //   }
+          //
+          //   return require("uglify-js").minify(file, uglifyJsOptions);
+          // },
         })
       ],
       // 分割代码块
