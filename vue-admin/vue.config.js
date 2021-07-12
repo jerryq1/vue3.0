@@ -8,11 +8,19 @@ function resolve(dir) {
 
 const cdn = {
   // 忽略打包的第三方库
-  externals: {},
+  externals: {
+    'vue': 'Vue',
+    "element-ui": "ELEMENT"
+},
 
   // 通过cdn方式使用
-  js: [],
-  css: [],
+  js: [
+    'https://cdn.jsdelivr.net/npm/vue',
+    'https://unpkg.com/element-ui/lib/index.js',
+  ],
+  css: [
+    'https://unpkg.com/element-ui/lib/theme-chalk/index.css'
+  ],
 };
 
 module.exports = {
@@ -64,12 +72,13 @@ module.exports = {
     // 移除 preload 插件
     config.plugins.delete('preload');
     // 配置cdn引入
-    // config.plugin('html').tap((args) => {
-    //   args[0].cdn = cdn;
-    //   return args;
-    // });
+    config.plugin('html').tap((args) => {
+      args[0].cdn = cdn;
+      return args;
+    });
   },
   configureWebpack: (config) => {
+    config.externals = cdn.externals
     config.plugins.push(
       new CompressionPlugin({
         test: /\.(js|css|html)$/,//需要压缩的文件正则
@@ -124,23 +133,24 @@ module.exports = {
       ],
       // 分割代码块
       splitChunks: {
-        chunks:'all',
+        chunks: 'all',
         // maxSize: 480 * 1024, // 控制包的最大字节数
         cacheGroups: {
           //公用模块抽离
           common: {
-            name: 'common',
-            chunks: 'initial',
-            priority: 2,
-            minChunks: 2,
+            test:/[\\/]src[\\/]/,
+            priority: 1,
+            // minChunks:2, //拆分前必须共享模块的最小 chunks 数
+            minSize: 1024, //大于0个字节
+            reuseExistingChunk: true,
           },
           //第三方库抽离
           vendor: {
-            priority: 1, //权重
-            test: /node_modules/,
-            chunks: 'initial',
+            priority: 5, //权重
+            test: /[\\/]node_modules[\\/]/,
+            // minChunks:2,
             minSize: 0, //大于0个字节
-            minChunks: 2, //在分割之前，这个代码块最小应该被引用的次数
+            reuseExistingChunk: true,
           },
         },
       }

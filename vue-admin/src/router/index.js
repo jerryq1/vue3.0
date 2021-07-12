@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from /*webpackPreload:true*/"../views/login/index";
-import Product from "../views/product/index";
-// const Login = () => import(/*webpackPreload:true*/'../views/login/index')
-// const Product = () => import(/*webpackChunkName:'adminChunk'*/'../views/login/index')
+// import Login from /*webpackPreload:true*/"../views/login/index";
+// import Product from "../views/product/index";
+const Login = () => import(/*webpackPreload:true*/'../views/login/index')
+const Product = () => import(/*webpackChunkName:'adminChunk'*/'../views/login/index')
 
 Vue.use(VueRouter);
 
