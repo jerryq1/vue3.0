@@ -18,7 +18,7 @@ console.log(Vue.config);
 import axios from 'axios'
 import 'babel-polyfill'
 import Es6Promise from 'es6-promise'
-
+import imgs from './views/imgs'
 
 require('es6-promise').polyfill()
 
@@ -32,7 +32,7 @@ Vue.prototype.$axios = axios
 //   .use(Row)
 //   .use(Col)
 // Vue.use(ElementUI)
-
+console.log(imgs);
 
 console.log(Promise);
 const imgPreloader = url => {
@@ -58,11 +58,7 @@ const imgsPreloader = imgs => {
 
 
 (async () => {
-  await imgsPreloader([
-    './assets/cat.png',
-    './assets/logo.png',
-    './assets/tag_bg.png',
-  ]);
+  await imgsPreloader(imgs.imgs);
   //关闭加载弹框
   new Vue({
     router,
