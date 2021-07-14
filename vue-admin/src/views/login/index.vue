@@ -38,14 +38,14 @@
     </el-form>
 
 
-    <img src="../../assets/cat.png" alt="">
-    <img src="../../assets/tag_bg.png" alt="">
+    <img :src="imgs.imgs[0]" alt="">
+    <img :src="imgs.imgs[1]" alt="">
   </div>
 </template>
 
 <script>
   // import {validateUsername,validatePass,validateCode} from '@/utils/validate'
-
+import imgs from '../imgs'
   export default {
     components: {
       // 子组件引入
@@ -104,6 +104,7 @@
         }
       };
       return {
+        imgs,
         tags: [
           {
             label: '登录',
@@ -147,6 +148,7 @@
     ,
     mounted() {
       // 页面已渲染完成
+      console.log(imgs);
 
     }
     ,
