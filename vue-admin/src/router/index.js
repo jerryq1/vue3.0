@@ -5,7 +5,6 @@ import VueRouter from "vue-router";
 // import Login from "../views/login/index";
 // import Product from "../views/product/index";
 const Login = () => import(
-  /*webpackPrefetch:true*/
   /*webpackChunkName:'login'*/
   '../views/login/index'
   )
@@ -28,8 +27,7 @@ const routes = [
   {
     path: "/product",
     component: () => import(
-      /*webpackPrefetch:true*/
-      /*webpackChunkName:'product'*/
+        /*webpackChunkName:'product'*/
       '../views/product/index'
       )
   },

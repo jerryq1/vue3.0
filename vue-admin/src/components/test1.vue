@@ -5,12 +5,6 @@
 </template>
 
 <script>
-  import(
-    /*webpackPreload:true*/
-    /*webpackPrefetch:true*/
-    /*webpackChunkName:'dev'*/
-    '../views/dev/index'
-    )
   export default {
     name:'test',
 
