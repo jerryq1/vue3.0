@@ -9,10 +9,10 @@ const Login = () => import(
   /*webpackChunkName:'login'*/
   '../views/login/index'
   )
-const Product = () => import(
-  /*webpackChunkName:'product'*/
-  '../views/product/index'
-  )
+// const Product = () => import(
+//   /*webpackChunkName:'product'*/
+//   '../views/product/index'
+//   )
 
 Vue.use(VueRouter);
 
@@ -33,10 +33,10 @@ const routes = [
       '../views/product/index'
       )
   },
-  {
-    path: "/product",
-    component: Product
-  }
+  // {
+  //   path: "/product",
+  //   component: Product
+  // }
 ];
 
 const router = new VueRouter({

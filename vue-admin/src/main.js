@@ -36,6 +36,20 @@ Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false;
 
+function preloadImage() {
+  const imgList = [
+    require('../src/assets/cat.png'),
+    require('../src/assets/logo.png'),
+    require('../src/assets/tag_bg.png'),
+  ];
+  for (let i = 0; i < imgList.length; i++) {
+    const newIMG = new Image();
+    newIMG.src = imgList[i];
+  }
+  console.log('预加载图片完毕');
+}
+preloadImage()
+
 new Vue({
   router,
   // store,
