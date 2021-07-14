@@ -34,24 +34,41 @@ Vue.prototype.$axios = axios
 // Vue.use(ElementUI)
 
 
-Vue.config.productionTip = false;
+console.log(Promise);
+const imgPreloader = url => {
+  return new Promise((resolve, reject) => {
+    let image = new Image();
+    image.src = url;
+    image.onload = () => {
+      resolve();
+    };
+    image.onerror = () => {
+      // reject();
+    };
+  });
+};
+const imgsPreloader = imgs => {
+  let promiseArr = [];
+  imgs.forEach(element => {
+    promiseArr.push(imgPreloader(element));
+  });
+  console.log('图片预加载完毕');
+  return promiseArr;
+};
 
-function preloadImage() {
-  const imgList = [
-    require('../src/assets/cat.png'),
-    require('../src/assets/logo.png'),
-    require('../src/assets/tag_bg.png'),
-  ];
-  for (let i = 0; i < imgList.length; i++) {
-    const newIMG = new Image();
-    newIMG.src = imgList[i];
-  }
-  console.log('预加载图片完毕');
-}
-preloadImage()
 
-new Vue({
-  router,
-  // store,
-  render: h => h(App)
-}).$mount("#app");
+(async () => {
+  await imgsPreloader([
+    './assets/cat.png',
+    './assets/logo.png',
+    './assets/tag_bg.png',
+  ]);
+  //关闭加载弹框
+  new Vue({
+    router,
+    // store,
+    render: h => h(App)
+  }).$mount("#app");
+})();
+
+
