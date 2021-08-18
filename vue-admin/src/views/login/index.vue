@@ -38,10 +38,6 @@
 		</el-form>
 
 
-		<footer>
-
-		</footer>
-
 	</div>
 </template>
 
