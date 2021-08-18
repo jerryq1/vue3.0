@@ -10,13 +10,15 @@ const cdn = {
   // 忽略打包的第三方库
   externals: {
     'vue': 'Vue',
-    "element-ui": "ELEMENT"
+    'vue-router': 'VueRouter',
+    "element-ui": "ELEMENT",
 },
 
   // 通过cdn方式使用
   js: [
     'https://cdn.jsdelivr.net/npm/vue',
     'https://unpkg.com/element-ui/lib/index.js',
+    'https://cdn.bootcdn.net/ajax/libs/vue-router/3.2.0/vue-router.min.js'
   ],
   css: [
     'https://unpkg.com/element-ui/lib/theme-chalk/index.css'
