@@ -1,42 +1,43 @@
 <template>
 	<div class="login">
-		<div class="tag">
-			<ul>
-				<li v-for="(item,index) in tags" :key="index" :class="{'active':item.switch}"
-				    @click="switchLogin(item)">{{item.label}}
-				</li>
-			</ul>
-		</div>
+<!--		<div class="tag">-->
+<!--			<ul>-->
+<!--				<li v-for="(item,index) in tags" :key="index" :class="{'active':item.switch}"-->
+<!--				    @click="switchLogin(item)">{{item.label}}-->
+<!--				</li>-->
+<!--			</ul>-->
+<!--		</div>-->
 
-		<el-form :model="ruleForm" label-position="top" status-icon :rules="rules" ref="ruleForm" label-width="140px"
-		         class="demo-ruleForm">
-			<el-form-item label="邮箱" prop="username">
-				<el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="密码" prop="pass">
-				<el-input type="password" v-model="ruleForm.pass" autocomplete="off" minlength="6"
-				          maxlength="20"></el-input>
-			</el-form-item>
-			<el-form-item label="确认密码" prop="checkPass" v-if="tags[1].switch">
-				<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="验证码" prop="code">
-				<el-row :gutter="10" class="flex">
-					<el-col :span="14">
-						<el-input v-model="ruleForm.code"></el-input>
-					</el-col>
-					<el-col :span="10">
-						<el-button type="success" class="block" size="mini">获取验证码</el-button>
-					</el-col>
-				</el-row>
+<!--		<el-form :model="ruleForm" label-position="top" status-icon :rules="rules" ref="ruleForm" label-width="140px"-->
+<!--		         class="demo-ruleForm">-->
+<!--			<el-form-item label="邮箱" prop="username">-->
+<!--				<el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>-->
+<!--			</el-form-item>-->
+<!--			<el-form-item label="密码" prop="pass">-->
+<!--				<el-input type="password" v-model="ruleForm.pass" autocomplete="off" minlength="6"-->
+<!--				          maxlength="20"></el-input>-->
+<!--			</el-form-item>-->
+<!--			<el-form-item label="确认密码" prop="checkPass" v-if="tags[1].switch">-->
+<!--				<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>-->
+<!--			</el-form-item>-->
+<!--			<el-form-item label="验证码" prop="code">-->
+<!--				<el-row :gutter="10" class="flex">-->
+<!--					<el-col :span="14">-->
+<!--						<el-input v-model="ruleForm.code"></el-input>-->
+<!--					</el-col>-->
+<!--					<el-col :span="10">-->
+<!--						<el-button type="success" class="block" size="mini">获取验证码</el-button>-->
+<!--					</el-col>-->
+<!--				</el-row>-->
 
-			</el-form-item>
-			<el-form-item>
-				<el-button type="danger" class="block mt20" @click="submitForm('ruleForm')">{{tags[1].switch? '注册':'登录'}}
-				</el-button>
-			</el-form-item>
-		</el-form>
-
+<!--			</el-form-item>-->
+<!--			<el-form-item>-->
+<!--				<el-button type="danger" class="block mt20" @click="submitForm('ruleForm')">{{tags[1].switch? '注册':'登录'}}-->
+<!--				</el-button>-->
+<!--			</el-form-item>-->
+<!--		</el-form>-->
+		<button @click="$router.push('/product')">跳转</button>
+		<button @click="$router.push('/login')">跳转首页</button>
 
 	</div>
 </template>
@@ -147,16 +148,6 @@ export default {
   ,
   mounted() {
     // 页面已渲染完成
-    console.log(imgs);
-    setTimeout(()=>{
-      this.msg = 1
-    },1000)
-
-
-    document.querySelector('#msg').addEventListener('input', (e) => {
-      this.msg = e.target.textContent
-    })
-
   }
   ,
   destroyed() {
@@ -208,7 +199,7 @@ export default {
 
 <style lang="scss" scoped>
 	.login {
-		background-color: yellow;
+		/*background-color: yellow;*/
 		width: 100%;
 		height: 100%;
 		display: flex;
