@@ -1,44 +1,48 @@
 <template>
 	<div class="login">
-<!--		<div class="tag">-->
-<!--			<ul>-->
-<!--				<li v-for="(item,index) in tags" :key="index" :class="{'active':item.switch}"-->
-<!--				    @click="switchLogin(item)">{{item.label}}-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
+		<!--		<div class="tag">-->
+		<!--			<ul>-->
+		<!--				<li v-for="(item,index) in tags" :key="index" :class="{'active':item.switch}"-->
+		<!--				    @click="switchLogin(item)">{{item.label}}-->
+		<!--				</li>-->
+		<!--			</ul>-->
+		<!--		</div>-->
 
-<!--		<el-form :model="ruleForm" label-position="top" status-icon :rules="rules" ref="ruleForm" label-width="140px"-->
-<!--		         class="demo-ruleForm">-->
-<!--			<el-form-item label="邮箱" prop="username">-->
-<!--				<el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>-->
-<!--			</el-form-item>-->
-<!--			<el-form-item label="密码" prop="pass">-->
-<!--				<el-input type="password" v-model="ruleForm.pass" autocomplete="off" minlength="6"-->
-<!--				          maxlength="20"></el-input>-->
-<!--			</el-form-item>-->
-<!--			<el-form-item label="确认密码" prop="checkPass" v-if="tags[1].switch">-->
-<!--				<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>-->
-<!--			</el-form-item>-->
-<!--			<el-form-item label="验证码" prop="code">-->
-<!--				<el-row :gutter="10" class="flex">-->
-<!--					<el-col :span="14">-->
-<!--						<el-input v-model="ruleForm.code"></el-input>-->
-<!--					</el-col>-->
-<!--					<el-col :span="10">-->
-<!--						<el-button type="success" class="block" size="mini">获取验证码</el-button>-->
-<!--					</el-col>-->
-<!--				</el-row>-->
+		<!--		<el-form :model="ruleForm" label-position="top" status-icon :rules="rules" ref="ruleForm" label-width="140px"-->
+		<!--		         class="demo-ruleForm">-->
+		<!--			<el-form-item label="邮箱" prop="username">-->
+		<!--				<el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>-->
+		<!--			</el-form-item>-->
+		<!--			<el-form-item label="密码" prop="pass">-->
+		<!--				<el-input type="password" v-model="ruleForm.pass" autocomplete="off" minlength="6"-->
+		<!--				          maxlength="20"></el-input>-->
+		<!--			</el-form-item>-->
+		<!--			<el-form-item label="确认密码" prop="checkPass" v-if="tags[1].switch">-->
+		<!--				<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>-->
+		<!--			</el-form-item>-->
+		<!--			<el-form-item label="验证码" prop="code">-->
+		<!--				<el-row :gutter="10" class="flex">-->
+		<!--					<el-col :span="14">-->
+		<!--						<el-input v-model="ruleForm.code"></el-input>-->
+		<!--					</el-col>-->
+		<!--					<el-col :span="10">-->
+		<!--						<el-button type="success" class="block" size="mini">获取验证码</el-button>-->
+		<!--					</el-col>-->
+		<!--				</el-row>-->
 
-<!--			</el-form-item>-->
-<!--			<el-form-item>-->
-<!--				<el-button type="danger" class="block mt20" @click="submitForm('ruleForm')">{{tags[1].switch? '注册':'登录'}}-->
-<!--				</el-button>-->
-<!--			</el-form-item>-->
-<!--		</el-form>-->
-		<button @click="$router.push('/product')">跳转</button>
-		<button @click="$router.push('/login')">跳转首页</button>
-
+		<!--			</el-form-item>-->
+		<!--			<el-form-item>-->
+		<!--				<el-button type="danger" class="block mt20" @click="submitForm('ruleForm')">{{tags[1].switch? '注册':'登录'}}-->
+		<!--				</el-button>-->
+		<!--			</el-form-item>-->
+		<!--		</el-form>-->
+		<!--		<button @click="$router.push('/product')">跳转</button>-->
+		<!--		<button @click="$router.push('/login')">跳转首页</button>-->
+		<h1 style="color: white;font-size: 30px">Jerry的技术日常</h1>
+		<footer>
+				Copyright © 2021 jerry1.top
+				<a href="https://beian.miit.gov.cn/">粤ICP备2021114839号-1</a>
+		</footer>
 	</div>
 </template>
 
@@ -208,6 +212,17 @@ export default {
 		flex-direction: column;
 		background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdik.img.kttpdq.com%2Fpic%2F43%2F29889%2F71ca731733801608_1366x768.jpg&refer=http%3A%2F%2Fdik.img.kttpdq.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1631859090&t=fb9b8ff51303c161d63dfda65586fc86");
 		background-size: cover;
+		position: relative;
+		footer{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			padding: 10px;
+			color: white;
+			a{
+				color: black;
+			}
+		}
 
 		.tag {
 			ul {
